@@ -2,15 +2,40 @@
   <html>
   <head>
     <style>
-       .container {
+       #email {
         display: flex;
         align-items: center;
         justify-content: left;
-        border: 2px solid black;
+        border: 2px solid rgb(167, 167, 167);
         width: 1000px;
         margin: auto;
-        margin-top: 100px;
+        margin-top: 5px;
         padding: 10px;
+        background-color: rgb(253, 248, 241);
+      }
+
+      #emailbody {
+        width: 1000px;
+        height: 500px;
+        background-color: rgb(253, 248, 241);
+        padding: 10px;
+        margin: auto;
+        border: 2px solid rgb(167, 167, 167);
+
+      }
+
+      #context {
+        display: flex;
+        justify-content: left;
+        width: 1000px;
+        margin: auto;
+        margin-top: 10px;
+        height: 120px;
+        background-color: rgb(253, 248, 241);
+        font-family:Arial, Helvetica, sans-serif;
+        padding: 10px;
+        border: 2px solid rgb(167, 167, 167);
+
       }
       img {
         border-radius: 50%;
@@ -21,46 +46,113 @@
       }
       .text {
         float: left;
-        padding-left: 20px;
+        padding-left: 10px;
         font-size: 14px;
+        line-height: 8px;
+        font-family: Arial, Helvetica, sans-serif
       }
 
-      #context {
-        margin: auto;
-        background-color: yellow;
+      .button {
+        background-color: #f0f0f0;
+        border: none;
+        color: rgb(22, 22, 22);
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
       }
+
+      body {
+        background-color: #252525;
+      }
+
+      #emailAddress:hover{
+        color:rgb(226, 50, 173);
+      }
+
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+      }
+
+      li {
+        float: left;
+      }
+
+      li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+
+      /* Change the link color to #111 (black) on hover */
+      li a:hover {
+        background-color: #111;
+      }
+
     </style>
     <script src="emailGame.js"></script>
 
   </head>
+    <title>
+      Random Email Generator
+    </title>
     <body>
-      <p>
-      Score: <span id="score"></span>
-      <span id="number"></span>
-      <span id="userName"></span>
-
-      </p>
-      <button type="button" onclick="addone()"> Add One </button>
-      <button type="button" onclick="minusone()"> Minus One </button>
-      <button type="button" onclick="randomise()"> Randomise </button>
-      <button type="button" onclick="generateFakeEmail(); generateName()"> Generate Email</button>
-      <button type="button" onclick="generateName()"> Generate Name</button>
-
-      <br></br>
-      <h1 id="context">Context</h1>
-      <p> <span id=description></span></p>
-      <span id="emailsuspicion"> email suspicion</span>
-      <div class="container">
-        <div class="image">
-          <img src="images/AmazonLogo.jpg" alt="Avatar">
-        </div>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+      <div class="container" id="context">
         <div class="text">
-          <span id="emailAddress" onclick="suspiciousCheck()"></span>
+          <h1> Context </h1>
+          <span id=description>test</span>
+        </div>
+           
+      </div>
+
+      <div class="container" id="email">
+        <div class="image">
+          <img src="images/BusinessMan3.jpg" alt="Avatar">
+        </div>
+
+        <div class="text">
+          12/11/09 02:24 <span id="emailAddress" onclick="suspiciousCheck()"></span>
+          <p>To: Me</p>
           <h1>Urgent!!! Document needs reviewing NOW!!!</h1>
         </div>
+
       </div>
-      <div class="container">
+
+      <div class="container" id="emailbody">
         
       </div>
+
+      <p>
+        Score: <span id="score"></span>
+        <span id="number"></span>
+        <span id="userName"></span>
+  
+        </p>
+        <button type="button" onclick="addone()"> Add One </button>
+        <button type="button" onclick="minusone()"> Minus One </button>
+        <button type="button" onclick="randomise()"> Randomise </button>
+        <button type="button" class="button" onclick="generateName()"> Generate Email</button>
+  
+        <br></br>
+        
+  
+        <p> 
+          
+          <span id="emailsuspicion"> email suspicion</span>
+        </p>
+  
     </body>
 </html>
