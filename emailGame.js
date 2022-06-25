@@ -1,6 +1,7 @@
 score = 0
 randemail = 1
 emailsuspicion = false
+const companies = ["amazon", "mcdonalds", "samsung", "apple", "tesco", "microsoft", "dropbox", "ebay"]
 
 function minusone() {
     score--
@@ -24,17 +25,35 @@ function randomise() {
 
 }
 
-function generateFakeEmail(name) {
+function generateFakeEmail(name, faketype) {
+
+    document.getElementById("emailnumber").innerHTML = faketype
+
+    if (faketype == 0) {
+        let r = (Math.random() + 1).toString(36).substring(7);
+        let t = (Math.random() + 1).toString(36).substring(7)
+        random_image = Math.floor(Math.random() * 6) + 1;
+        emailname = name.replace(/\s/g, '')
+        emailsuspicion = true
+        document.getElementById("emailAddress").innerHTML = emailname + "@" + r + t + ".com";
+        document.getElementById("profileimage").src = "images/BusinessMan" + random_image + ".jpg";
+    }
     //Email Address Generation
-    let r = (Math.random() + 1).toString(36).substring(7);
-    let t = (Math.random() + 1).toString(36).substring(7)
-    emailname = name.replace(/\s/g, '')
-    emailsuspicion = true
-    document.getElementById("emailAddress").innerHTML = emailname + "@" + r + t + ".com";
-    //
+    else if (faketype == 1) {
+        emailsuspicion = true
+        random_company = Math.floor(Math.random() * 8);
+        document.getElementById("emailAddress").innerHTML =  companies[random_company] + "@gmail.com";
+        document.getElementById("profileimage").src = "business_images/AmazonLogo.jpg";
+    }
+
+    else if (faketype == 2) {
+        emailsuspicion = true
+        document.getElementById("emailAddress").innerHTML = "hax0rm4n@yahoo.com";
+    }
     
 }
 
+// Name Generation Start
 function capFirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -43,7 +62,7 @@ function getRandomInt(min, max) {
   	return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function generateName(){
+function generateName(faketype){
 
     var element = document.getElementById("emailAddress");
     element.style.backgroundColor = "white"
@@ -57,8 +76,9 @@ function generateName(){
 
     document.getElementById("description").innerHTML = "The boss of your company " + finalname + " has personally sent you this email requiring you to download a file.";
     document.getElementById("userName").innerHTML = finalname;
-    generateFakeEmail(finalname)
+    generateFakeEmail(finalname, faketype)
 }
+// Name Generation End
 
 function suspiciousCheck(){
     if (emailsuspicion = true) {
@@ -69,4 +89,10 @@ function suspiciousCheck(){
     if (emailsuspicion = false) {
         document.getElementById("emailsuspicion").innerHTML = "False"
     }
+}
+
+
+function startGeneration() {
+    faketype = Math.floor(Math.random() * 3)
+    generateName(faketype);
 }
