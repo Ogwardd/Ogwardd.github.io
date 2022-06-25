@@ -2,27 +2,65 @@
   <html>
   <head>
     <style>
+       .container {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        border: 2px solid black;
+        width: 1000px;
+        margin: auto;
+        margin-top: 100px;
+        padding: 10px;
+      }
       img {
         border-radius: 50%;
         border: 2px solid rgb(179, 179, 179);
         width: 80px;
         height: 80px;
+        max-width: 100%
+      }
+      .text {
+        float: left;
+        padding-left: 20px;
+        font-size: 14px;
+      }
+
+      #context {
+        margin: auto;
+        background-color: yellow;
       }
     </style>
     <script src="emailGame.js"></script>
 
   </head>
     <body>
-      <h1>Hello World</h1>
       <p>
       Score: <span id="score"></span>
-      <span id="emailType"></span>
       <span id="number"></span>
+      <span id="userName"></span>
+
       </p>
       <button type="button" onclick="addone()"> Add One </button>
       <button type="button" onclick="minusone()"> Minus One </button>
       <button type="button" onclick="randomise()"> Randomise </button>
+      <button type="button" onclick="generateFakeEmail(); generateName()"> Generate Email</button>
+      <button type="button" onclick="generateName()"> Generate Name</button>
+
       <br></br>
-      <img src="images/AmazonLogo.jpg" alt="Avatar">
+      <h1 id="context">Context</h1>
+      <p> <span id=description></span></p>
+      <span id="emailsuspicion"> email suspicion</span>
+      <div class="container">
+        <div class="image">
+          <img src="images/AmazonLogo.jpg" alt="Avatar">
+        </div>
+        <div class="text">
+          <span id="emailAddress" onclick="suspiciousCheck()"></span>
+          <h1>Urgent!!! Document needs reviewing NOW!!!</h1>
+        </div>
+      </div>
+      <div class="container">
+        
+      </div>
     </body>
 </html>
