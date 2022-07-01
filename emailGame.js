@@ -2,6 +2,7 @@ score = 0
 randemail = 1
 emailsuspicion = false
 const companies = ["amazon", "mcdonalds", "samsung", "apple", "tesco", "microsoft", "dropbox", "ebay"]
+const downloadable = ["Document", "Report", "Review", "Assignment", "PDF", "Word", "Form", "File", "Record",""]
 
 function minusone() {
     score--

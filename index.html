@@ -33,7 +33,7 @@
         height: 120px;
         background-color: rgb(253, 248, 241);
         font-family:Arial, Helvetica, sans-serif;
-        padding: 10px;
+        padding: 100px;
         border: 2px solid rgb(167, 167, 167);
 
       }
@@ -68,6 +68,14 @@
       }
 
       #emailAddress:hover{
+        color:rgb(226, 50, 173);
+      }
+
+      #emailTitle:hover{
+        color:rgb(226, 50, 173);
+      }
+
+      #timeSent:hover{
         color:rgb(226, 50, 173);
       }
 
@@ -114,7 +122,18 @@
         <div class="text">
           <h1> Context </h1>
           <span id=description>test</span>
+          <span id=phishinggeneration>test</span>
           <span id="emailnumber"></span>
+          <br>
+          <br>
+          <p> Phishing Type</p>
+          <span id="phishingtype"></span>
+          <span id="phishingtypeword"></span>
+          <span id="phishinglength">length</span>
+          <p> Issues </p>
+          <span id="issuesnumber"> </span>
+          <span id="issuesarray">arr</span>
+          <span id="issuewordarray">word arr</span>
         </div>
            
       </div>
@@ -125,9 +144,10 @@
         </div>
 
         <div class="text">
-          12/11/09 02:24 <span id="emailAddress" onclick="suspiciousCheck()"></span>
+          <span id="timeSent">test</span>
+          <span id="emailAddress" onclick="suspiciousCheck()"></span>
           <p>To: Me</p>
-          <h1>Urgent!!! Document needs reviewing NOW!!!</h1>
+          <h1 id="emailTitle"></h1>
         </div>
 
       </div>
