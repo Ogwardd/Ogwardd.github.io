@@ -114,13 +114,12 @@
     <body>
       <ul>
         <li><a href="#home">Home</a></li>
-        <li><a href="#news">News</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Phishing Email Test</a></li>
+        <li><a href="#about">About Me</a></li>
       </ul>
       <div class="container" id="context">
         <div class="text">
-          <h1> Context </h1>
+          <h1> Debug Stuff </h1>
           <span id=description>test</span>
           <span id=phishinggeneration>test</span>
           <span id="emailnumber"></span>
@@ -144,10 +143,10 @@
         </div>
 
         <div class="text">
-          <span id="timeSent">test</span>
+          <span id="timeSent" onclick="suspiciousTime()">test</span>
           <span id="emailAddress" onclick="suspiciousCheck()"></span>
           <p>To: Me</p>
-          <h1 id="emailTitle"></h1>
+          <h1 id="emailTitle" onclick="suspiciousTitle()">test</h1>
         </div>
 
       </div>

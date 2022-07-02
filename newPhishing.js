@@ -3,11 +3,29 @@ const companies = ["amazon", "mcdonalds", "samsung", "apple", "tesco", "microsof
 const downloadable = ["Document", "Report", "Review", "Assignment", "PDF", "Word", "Form", "File", "Record"]
 const relationTraits = ["emailaddress", "time", "photo", "title", "grammar"]
 const productTraits = ["didnotorder", "emailaddress", "photo", "title", "link", "grammar"]
-const threatTraits = ["spelling", "link", "title", "grammar"]
+const threatTraits = ["link", "title", "grammar"]
+var susTitle = false
+var susTime = false
+var susEmail = false
+var susLink = false
+var susPhoto = false
+var susGrammar = false
+var susDidnotorder = false
+var susContent = false
+
+
 
 
 
 function startGeneration() { // This function decides if the email will be phishing or not
+    susTitle = false // reset all to false at beginning of generation
+    susTime = false
+    susEmail = false
+    susLink = false
+    susPhoto = false
+    susGrammar = false
+    susDidnotorder = false
+    susContent = false
     phishingRandomiser = Math.floor(Math.random()*10);
     document.getElementById("description").innerHTML = "generation working" + phishingRandomiser
     if (phishingRandomiser > 2) { // 30% Legit 70% Phishing emails
@@ -102,6 +120,7 @@ function generateEmail(wordArr, ) {
     
 
     if (wordArr.includes("time")) {
+        susTime = true
         badHour = Math.floor(Math.random()*3) + 1;
         badMinute = Math.floor(Math.random()*60);
         if (badMinute < 10) {
@@ -119,11 +138,15 @@ function generateEmail(wordArr, ) {
     }
     */
     if (wordArr.includes("title")) {
+        // Arrays to randomise title
         const downloadable = ["document", "report", "review", "assignment", "PDF", "word document", "form", "file", "record"]
         const baitwords = ["Urgent", "URGENT", "SERIOUS", "CRITICAL", "NECESSARY", "IMPORTANT", "Important", "Necessary", "Critical", "Serious"]
         const connectorwords = ["we need this", "please get this", "have this"]
         const completionwords = ["sorted", "finished", "reviewed", "completed", "done", "sent off", "posted","sent out"]
         const finishwords = ["ASAP", "by today", "quickly", "tonight", "rapidly", "very soon", "right away"]
+
+        susTitle = true // Setting title to be suspicious
+
         if (phishingType == 0 ) {
             document.getElementById("emailTitle").innerHTML = baitwords[Math.floor(Math.random()*baitwords.length)] + " " + connectorwords[Math.floor(Math.random()*connectorwords.length)] + " " + downloadable[Math.floor(Math.random()*downloadable.length)] + " " + completionwords[Math.floor(Math.random()*completionwords.length)] + " " + finishwords[Math.floor(Math.random()*finishwords.length)] + ", " + baitwords[Math.floor(Math.random()*baitwords.length)] + "!"
         }
@@ -159,3 +182,24 @@ function generateEmail(wordArr, ) {
 function generateLegit() {
     document.getElementById("phishinggeneration").innerHTML = "legit generation working"
 }
+
+function suspiciousTime(){
+    var element = document.getElementById("timeSent");
+    if (susTime == true) {
+        element.style.backgroundColor = "#78CD39"
+    }
+    if (susTime == false) {
+        element.style.backgroundColor = "#ED5E40"
+    }
+}
+
+function suspiciousTitle(){
+    var element = document.getElementById("emailTitle");
+    if (susTitle == true) {
+        element.style.backgroundColor = "#78CD39"
+    }
+    if (susTitle == false) {
+        element.style.backgroundColor = "#ED5E40"
+    }
+}
+
