@@ -4,6 +4,10 @@ const downloadable = ["Document", "Report", "Review", "Assignment", "PDF", "Word
 const relationTraits = ["emailaddress", "time", "photo", "title", "grammar"]
 const productTraits = ["didnotorder", "emailaddress", "photo", "title", "link", "grammar"]
 const threatTraits = ["link", "title", "grammar"]
+const male_first_names = ["john", "oliver", "mike", "david", "ian", "chris", "tom", "jack", "gus", "craig", "scott", "elliot", "daniel"]
+const female_first_names = ["julie", "june", "kirsty", "gwynn", "daisy", "susan", "carol", "anne", "patricia", "molly", "tina", "maude", "sheila"]
+const last_names = ["anderson", "ashwoon", "aikin", "bateman", "bongard", "bowers", "boyd", "cannon", "cast", "deitz", "dewalt", "ebner", "french", "hancock", "haworth", "hesch", "hoffman", "kassing", "knutson", "lawless", "lawicki", "mccord", "mccormack", "miller", "myers", "nugent", "ortiz", "orwig", "ory", "paiser", "pak", "pettigrew", "quinn", "quizoz", "ramachandran", "resnick", "sagar", "schickowski", "schiebel", "sellon", "severson", "shaffer", "solberg", "soloman", "sonderling", "soukup", "soulis", "stahl", "sweeney", "tandy", "trebil", "trusela", "trussel", "turco", "uddin", "uflan", "ulrich", "upson", "vader", "vail", "valente", "vanzandt", "vanderpoel", "ventotla", "vogal", "wagle", "wagner", "wakefield", "weinstein"]
+
 var susTitle = false
 var susTime = false
 var susEmail = false
@@ -18,6 +22,15 @@ var susContent = false
 
 
 function startGeneration() { // This function decides if the email will be phishing or not
+    var element = document.getElementById("timeSent");
+    element.style.backgroundColor = "white"
+    var element = document.getElementById("emailTitle");
+    element.style.backgroundColor = "white"
+    var element = document.getElementById("emailAddress");
+    element.style.backgroundColor = "white"
+    var element = document.getElementById("profileimage");
+    element.style.borderColor = "#b3b3b3"
+
     susTitle = false // reset all to false at beginning of generation
     susTime = false
     susEmail = false
@@ -26,11 +39,11 @@ function startGeneration() { // This function decides if the email will be phish
     susGrammar = false
     susDidnotorder = false
     susContent = false
+
     phishingRandomiser = Math.floor(Math.random()*10);
     genderRandom = Math.floor(Math.random()*2);
     document.getElementById("description").innerHTML = "generation working" + phishingRandomiser
-    if (phishingRandomiser > 2) { // 30% Legit 70% Phishing emails
-        document.getElementById("score").innerHTML = relationTraits[1];
+    if (phishingRandomiser > 0) { // 10% Legit 90% Phishing emails
         generatePhishing(genderRandom);
         
     }
@@ -112,12 +125,40 @@ function generateEmail(wordArr, phishingType, genderRandom) {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0');
+
+    
+    if (genderRandom == 0) { //Female 
+        emailname = female_first_names[getRandomInt(0, female_first_names.length)] + last_names[getRandomInt(0, last_names.length)]
+    }
+
+    if (genderRandom == 1) { //Male
+        emailname = male_first_names[getRandomInt(0, male_first_names.length)] + last_names[getRandomInt(0, last_names.length)]
+    }  
+
     today = mm + '/' + dd
 
-    /*if (wordArr.includes("emailaddress")) {
+    if (wordArr.includes("emailaddress")) {
+        if (phishingType == 0) {
+            let r = (Math.random() + 1).toString(36).substring(7);
+            let t = (Math.random() + 1).toString(36).substring(7)
+            random_image = Math.floor(Math.random() * 6) + 1;
+            susEmail = true
+            document.getElementById("emailAddress").innerHTML = emailname + "@" + r + t + ".com";
+        }
 
+        else if (phishingType == 1) {
+            susEmail = true
+            random_company = Math.floor(Math.random() * 8);
+            document.getElementById("emailAddress").innerHTML =  companies[random_company] + "@gmail.com";
+            document.getElementById("profileimage").src = "business_images/" + companies[random_company] +".jpg";
+        }
+    
+        else if (phishingType == 2) {
+            susEmail = true
+            document.getElementById("emailAddress").innerHTML = "hax0rm4n@yahoo.com";
+        }
     }
-    */
+    
     
 
     if (wordArr.includes("time")) {
@@ -136,6 +177,7 @@ function generateEmail(wordArr, phishingType, genderRandom) {
 
     if (wordArr.includes("photo")) {
         randomImage = Math.floor(Math.random()*6) + 1;
+        susPhoto = true
         
         if (genderRandom == 0) {
             document.getElementById("gender").innerHTML = "male photo, meant to be female";
@@ -152,7 +194,7 @@ function generateEmail(wordArr, phishingType, genderRandom) {
     if (wordArr.includes("title")) {
         // Arrays to randomise title
         const downloadable = ["document", "report", "review", "assignment", "PDF", "word document", "form", "file", "record"]
-        const baitwords = ["Urgent", "URGENT", "SERIOUS", "CRITICAL", "NECESSARY", "IMPORTANT", "Important", "Necessary", "Critical", "Serious"]
+        const baitwords = ["Urgent", "URGENT", "SERIOUS", "CRITICAL", "Critical", "Serious", "[ASAP]", "QUICKLY", "PRONTO"]
         const connectorwords = ["we need this", "please get this", "have this"]
         const completionwords = ["sorted", "finished", "reviewed", "completed", "done", "sent off", "posted","sent out"]
         const finishwords = ["ASAP", "by today", "quickly", "tonight", "rapidly", "very soon", "right away"]
@@ -189,6 +231,37 @@ function generateEmail(wordArr, phishingType, genderRandom) {
     }
     */
 
+    if (!wordArr.includes("emailaddress")) {
+        if (phishingType == 0) {
+            document.getElementById("emailAddress").innerHTML = emailname + "@" + "gmail.com"
+        }
+        
+    }
+
+    if (!wordArr.includes("time")) {
+        goodHour = 0
+        while (goodHour < 7) {
+            goodHour = Math.floor(Math.random()*18) + 1;
+        }
+        
+        goodMinute = Math.floor(Math.random()*60);
+        if (goodHour > 9 && goodMinute > 9) {
+            document.getElementById("timeSent").innerHTML = today + " " + goodHour + ":" + goodMinute
+        }
+
+        if (goodHour > 9 && goodMinute < 10) {
+            document.getElementById("timeSent").innerHTML = today + " " + goodHour + ":" + "0" + goodMinute
+        }
+        if (goodhour < 10 && goodMinute > 9) {
+            document.getElementById("timeSent").innerHTML = today + " " + "0" + goodHour + ":" + goodMinute
+        }
+        else {
+            document.getElementById("timeSent").innerHTML = today + " " + "0" + goodHour + ":" + "0" + goodMinute
+        }
+           
+
+    }
+
 }
 
 function generateLegit() {
@@ -215,3 +288,26 @@ function suspiciousTitle(){
     }
 }
 
+function suspiciousEmail(){
+    var element = document.getElementById("emailAddress");
+    if (susEmail == true) {
+        element.style.backgroundColor = "#78CD39"
+    }
+    if (susEmail == false) {
+        element.style.backgroundColor = "#ED5E40"
+    }
+}
+
+function suspiciousPhoto(){
+    var element = document.getElementById("profileimage");
+    if (susPhoto == true) {
+        element.style.borderColor = "#78CD39"
+    }
+    if (susPhoto == false) {
+        element.style.borderColor = "#ED5E40"
+    }
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}

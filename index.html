@@ -39,11 +39,15 @@
       }
       img {
         border-radius: 50%;
-        border: 2px solid rgb(179, 179, 179);
+        border: 5px solid rgb(179, 179, 179);
         width: 80px;
         height: 80px;
         max-width: 100%
       }
+      img:hover { 
+        border: 5px solid rgb(226, 50, 173); 
+      } 
+
       .text {
         float: left;
         padding-left: 10px;
@@ -104,6 +108,10 @@
         background-color: #111;
       }
 
+      .button-align {
+        text-align: center;
+      }
+
     </style>
     <script src="newPhishing.js"></script>
 
@@ -117,6 +125,35 @@
         <li><a href="#contact">Phishing Email Test</a></li>
         <li><a href="#about">About Me</a></li>
       </ul>
+      <!-- Button to generate email -->
+      <div class="button-align">
+        <button type="button" class="button" onclick="startGeneration()"> Generate Email</button>
+      </div>
+      
+
+      <!-- Email header containing info -->
+      <div class="container" id="email">
+        <div class="image">
+          <img id="profileimage" src="images/BusinessMan3.jpg" alt="Avatar" onclick="suspiciousPhoto()">
+        </div>
+
+        <div class="text">
+          <span id="timeSent" onclick="suspiciousTime()">test</span>
+          <span id="emailAddress" onclick="suspiciousEmail()"></span>
+          <p>To: Me</p>
+          <h1 id="emailTitle" onclick="suspiciousTitle()">test</h1>
+        </div>
+
+      </div>
+
+
+      <!-- Body of the email -->
+      <div class="container" id="emailbody">
+        
+      </div>
+
+
+      <!-- Debugging Console for site -->
       <div class="container" id="context">
         <div class="text">
           <h1> Debug Stuff </h1>
@@ -138,43 +175,5 @@
         </div>
            
       </div>
-
-      <div class="container" id="email">
-        <div class="image">
-          <img id="profileimage" src="images/BusinessMan3.jpg" alt="Avatar">
-        </div>
-
-        <div class="text">
-          <span id="timeSent" onclick="suspiciousTime()">test</span>
-          <span id="emailAddress" onclick="suspiciousCheck()"></span>
-          <p>To: Me</p>
-          <h1 id="emailTitle" onclick="suspiciousTitle()">test</h1>
-        </div>
-
-      </div>
-
-      <div class="container" id="emailbody">
-        
-      </div>
-
-      <p>
-        Score: <span id="score"></span>
-        <span id="number"></span>
-        <span id="userName"></span>
-  
-        </p>
-        <button type="button" onclick="addone()"> Add One </button>
-        <button type="button" onclick="minusone()"> Minus One </button>
-        <button type="button" onclick="randomise()"> Randomise </button>
-        <button type="button" class="button" onclick="startGeneration()"> Generate Email</button>
-  
-        <br></br>
-        
-  
-        <p> 
-          
-          <span id="emailsuspicion"> email suspicion</span>
-        </p>
-  
     </body>
 </html>
