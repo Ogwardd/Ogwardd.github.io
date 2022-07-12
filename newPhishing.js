@@ -1,5 +1,6 @@
 //Series of arrays used within program
 const companies = ["amazon", "mcdonalds", "samsung", "apple", "tesco", "microsoft", "dropbox", "ebay"]
+const company_emails = ["amazon.com", "mcdonalds.com", "samsung.com", "apple.com", "tesco.com", "microsoft.com", "dropbox.com", "ebay.com"]
 const downloadable = ["Document", "Report", "Review", "Assignment", "PDF", "Word", "Form", "File", "Record"]
 const relationTraits = ["emailaddress", "time", "photo", "title", "grammar"]
 const productTraits = ["didnotorder", "emailaddress", "photo", "title", "link", "grammar"]
@@ -112,6 +113,7 @@ function generatePhishing(genderRandom) { // Phishing generation will start with
         for (let step = 0; step < arr.length; step++) {
             arrNum = arr[step]
             wordArr.push(threatTraits[arrNum]);
+            susEmail = true
         }
     }
 
@@ -125,6 +127,8 @@ function generateEmail(wordArr, phishingType, genderRandom) {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0');
+    random_company = Math.floor(Math.random() * 8);
+    fake_random_company = Math.floor(Math.random() * 8);
 
     
     if (genderRandom == 0) { //Female 
@@ -148,9 +152,7 @@ function generateEmail(wordArr, phishingType, genderRandom) {
 
         else if (phishingType == 1) {
             susEmail = true
-            random_company = Math.floor(Math.random() * 8);
             document.getElementById("emailAddress").innerHTML =  companies[random_company] + "@gmail.com";
-            document.getElementById("profileimage").src = "business_images/" + companies[random_company] +".jpg";
         }
     
         else if (phishingType == 2) {
@@ -178,15 +180,23 @@ function generateEmail(wordArr, phishingType, genderRandom) {
     if (wordArr.includes("photo")) {
         randomImage = Math.floor(Math.random()*6) + 1;
         susPhoto = true
-        
-        if (genderRandom == 0) {
-            document.getElementById("gender").innerHTML = "male photo, meant to be female";
-            document.getElementById("profileimage").src = "images/BusinessMan" + randomImage + ".jpg";
-        }
+        if (phishingType == 0){
 
-        if (genderRandom == 1) {
-            document.getElementById("gender").innerHTML = "female photo, meant to be male";
-            document.getElementById("profileimage").src = "images/BusinessWoman" + randomImage + ".jpg"; 
+            if (genderRandom == 0) {
+                document.getElementById("profileimage").src = "images/BusinessMan" + randomImage + ".jpg";
+            }
+    
+            if (genderRandom == 1) {
+                document.getElementById("profileimage").src = "images/BusinessWoman" + randomImage + ".jpg"; 
+            }
+            
+        } 
+
+        if (phishingType == 1){
+            while (fake_random_company == random_company) {
+                fake_random_company = Math.floor(Math.random() * 8)
+            }
+            document.getElementById("profileimage").src = "business_images/" + companies[fake_random_company] +".jpg";
         }
         
     }
@@ -232,10 +242,31 @@ function generateEmail(wordArr, phishingType, genderRandom) {
     */
 
     if (!wordArr.includes("emailaddress")) {
-        if (phishingType == 0) {
+        if (phishingType == 0 ) {
             document.getElementById("emailAddress").innerHTML = emailname + "@" + "gmail.com"
         }
         
+        if (phishingType == 1) {
+            document.getElementById("emailAddress").innerHTML = companies[random_company] + "@" + company_emails[random_company]
+
+        }
+    }
+
+    if (!wordArr.includes("photo")) {
+        
+        if (phishingType == 0) {
+            if (genderRandom == 1) {
+                document.getElementById("profileimage").src = "images/BusinessMan" + randomImage + ".jpg";
+            }
+    
+            if (genderRandom == 0) {
+                document.getElementById("profileimage").src = "images/BusinessWoman" + randomImage + ".jpg"; 
+            }
+        }
+
+        if (phishingType == 1) {
+            document.getElementById("profileimage").src = "business_images/" + companies[random_company] +".jpg";
+        }
     }
 
     if (!wordArr.includes("time")) {
@@ -247,6 +278,7 @@ function generateEmail(wordArr, phishingType, genderRandom) {
         goodMinute = Math.floor(Math.random()*60);
         if (goodHour > 9 && goodMinute > 9) {
             document.getElementById("timeSent").innerHTML = today + " " + goodHour + ":" + goodMinute
+
         }
 
         if (goodHour > 9 && goodMinute < 10) {
