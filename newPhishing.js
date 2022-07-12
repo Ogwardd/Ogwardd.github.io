@@ -27,18 +27,19 @@ function startGeneration() { // This function decides if the email will be phish
     susDidnotorder = false
     susContent = false
     phishingRandomiser = Math.floor(Math.random()*10);
+    genderRandom = Math.floor(Math.random()*2);
     document.getElementById("description").innerHTML = "generation working" + phishingRandomiser
     if (phishingRandomiser > 2) { // 30% Legit 70% Phishing emails
         document.getElementById("score").innerHTML = relationTraits[1];
-        generatePhishing();
+        generatePhishing(genderRandom);
         
     }
     else {
-        generateLegit();
+        generateLegit(genderRandom);
     }
 }
 
-function generatePhishing() { // Phishing generation will start with what will look suspicious
+function generatePhishing(genderRandom) { // Phishing generation will start with what will look suspicious
     const companies = ["amazon", "mcdonalds", "samsung", "apple", "tesco", "microsoft", "dropbox", "ebay"]
     const relationTraits = ["emailaddress", "time", "photo", "title", "grammar"]
     const productTraits = ["didnotorder", "emailaddress", "photo", "title", "link", "grammar"]
@@ -103,11 +104,11 @@ function generatePhishing() { // Phishing generation will start with what will l
 
     document.getElementById("issuewordarray").innerHTML = wordArr
 
-    generateEmail(wordArr, phishingType)
+    generateEmail(wordArr, phishingType, genderRandom)
 
 }
 
-function generateEmail(wordArr, ) {
+function generateEmail(wordArr, phishingType, genderRandom) {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -132,11 +133,22 @@ function generateEmail(wordArr, ) {
 
     }
 
-    /*
+
     if (wordArr.includes("photo")) {
+        randomImage = Math.floor(Math.random()*6) + 1;
+        
+        if (genderRandom == 0) {
+            document.getElementById("gender").innerHTML = "male photo, meant to be female";
+            document.getElementById("profileimage").src = "images/BusinessMan" + randomImage + ".jpg";
+        }
+
+        if (genderRandom == 1) {
+            document.getElementById("gender").innerHTML = "female photo, meant to be male";
+            document.getElementById("profileimage").src = "images/BusinessWoman" + randomImage + ".jpg"; 
+        }
         
     }
-    */
+
     if (wordArr.includes("title")) {
         // Arrays to randomise title
         const downloadable = ["document", "report", "review", "assignment", "PDF", "word document", "form", "file", "record"]
@@ -180,7 +192,7 @@ function generateEmail(wordArr, ) {
 }
 
 function generateLegit() {
-    document.getElementById("phishinggeneration").innerHTML = "legit generation working"
+    document.getElementById("phishinggeneration").innerHTML = "legit generation working";
 }
 
 function suspiciousTime(){
