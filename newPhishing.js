@@ -58,6 +58,9 @@ function generatePhishing(genderRandom) { // Phishing generation will start with
     const relationTraits = ["emailaddress", "time", "photo", "title", "grammar"]
     const productTraits = ["didnotorder", "emailaddress", "photo", "title", "link", "grammar"]
     const threatTraits = ["grammar", "link", "title", "content"]
+    score = 0
+    document.getElementById("currentscore").innerHTML = score
+    
 
     phishingType = Math.floor(Math.random()*3);
     document.getElementById("phishinggeneration").innerHTML = "phishing generation working"
@@ -80,7 +83,7 @@ function generatePhishing(genderRandom) { // Phishing generation will start with
     
 
     issues = Math.floor(Math.random()*3) + 1;
-    document.getElementById("issuesnumber").innerHTML = issues
+    document.getElementById("emailscore").innerHTML = "0/"+issues
     var arr = [];
     while(arr.length < issues) {
         var r = Math.floor(Math.random()* length); // Randomising which issues will be put into the email
@@ -302,8 +305,12 @@ function generateLegit() {
 
 function suspiciousTime(){
     var element = document.getElementById("timeSent");
+    var score = document.getElementById("currentscore");
     if (susTime == true) {
         element.style.backgroundColor = "#78CD39"
+        score = score+1
+        document.getElementById("currentscore").innerHTML = score
+
     }
     if (susTime == false) {
         element.style.backgroundColor = "#ED5E40"
@@ -312,8 +319,11 @@ function suspiciousTime(){
 
 function suspiciousTitle(){
     var element = document.getElementById("emailTitle");
+    var score = document.getElementById("currentscore");
     if (susTitle == true) {
         element.style.backgroundColor = "#78CD39"
+        score = score+1
+        document.getElementById("currentscore").innerHTML = score
     }
     if (susTitle == false) {
         element.style.backgroundColor = "#ED5E40"
@@ -322,8 +332,11 @@ function suspiciousTitle(){
 
 function suspiciousEmail(){
     var element = document.getElementById("emailAddress");
+    var score = document.getElementById("currentscore");
     if (susEmail == true) {
         element.style.backgroundColor = "#78CD39"
+        score = score+1
+        document.getElementById("currentscore").innerHTML = score
     }
     if (susEmail == false) {
         element.style.backgroundColor = "#ED5E40"
@@ -332,8 +345,11 @@ function suspiciousEmail(){
 
 function suspiciousPhoto(){
     var element = document.getElementById("profileimage");
+    var score = document.getElementById("currentscore");
     if (susPhoto == true) {
         element.style.borderColor = "#78CD39"
+        score = score+1
+        document.getElementById("currentscore").innerHTML = score
     }
     if (susPhoto == false) {
         element.style.borderColor = "#ED5E40"
