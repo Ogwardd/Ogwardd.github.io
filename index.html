@@ -17,11 +17,11 @@
 
       #emailbody {
         width: 1000px;
-        height: 500px;
         background-color: rgb(253, 248, 241);
         padding: 10px;
         margin: auto;
         border: 5px solid #04aa6d;
+
 
       }
 
@@ -75,15 +75,19 @@
       }
 
       #emailAddress:hover{
-        color:rgb(226, 50, 173);
+        color:rgb(50, 141, 226);
       }
 
       #emailTitle:hover{
-        color:rgb(226, 50, 173);
+        color:rgb(50, 141, 226);
       }
 
       #timeSent:hover{
-        color:rgb(226, 50, 173);
+        color:rgb(50, 141, 226);
+      }
+
+      #emailbody:hover{
+        color:rgb(50, 141, 226);
       }
 
       ul {
@@ -169,6 +173,10 @@
         font-family: Arial, Helvetica, sans-serif;
       }
 
+      #body {
+        font-family:Arial, Helvetica, sans-serif;
+      }
+
     </style>
     <script src="newPhishing.js"></script>
 
@@ -186,10 +194,12 @@
       <div class="row">
 
         <div class="column-test" style="background-color:#aaa;" >
+          <h1 style="float: left; font-family:Arial, Helvetica, sans-serif; margin-left: 100px"> RELATIONSHIP BASED EMAIL </h1>
           <button type="button" class="button generate" onclick="startGeneration()">Generate Email</button>
         </div>
 
         <div class="column" style="background-color:#bbb;">
+          
           <div style="clear: both">
             <h1 class="emailscore" id="emailscore"> </h1>
           </div> 
@@ -202,21 +212,31 @@
       <!-- Email header containing info -->
       <div class="container" id="email">
         <div class="image">
-          <img id="profileimage" src="images/BusinessMan3.jpg" alt="Avatar" onclick="suspiciousPhoto()">
+          <img id="profileimage" onclick="suspiciousPhoto()">
         </div>
 
         <div class="text">
-          <span id="timeSent" onclick="suspiciousTime()">test</span>
-          <span id="emailAddress" onclick="suspiciousEmail()"></span>
+          <span id="timeSent" onclick="suspiciousTime()">Default</span>
+          <span id="emailAddress" onclick="suspiciousEmail()">Default</span>
           <p>To: Me</p>
-          <h1 id="emailTitle" onclick="suspiciousTitle()">test</h1>
+          <h1 id="emailTitle" onclick="suspiciousTitle()">Default</h1>
         </div>
 
       </div>
 
 
       <!-- Body of the email -->
-      <div class="container" id="emailbody">
+      <div class="container" id="emailbody" onclick="suspiciousGrammar()">
+
+
+          <p id="body"> This is the beginning of the email</p>
+          <br>
+          <p id="body"> This will be the main body of the email</p>
+          <br>
+          <p id="body"> This is the thanks of the email</p>
+          <br>
+          <p id="body"> This will be the accounts name</p>
+
         
       </div>
 

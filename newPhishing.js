@@ -31,6 +31,10 @@ function startGeneration() { // This function decides if the email will be phish
     element.style.backgroundColor = "white"
     var element = document.getElementById("profileimage");
     element.style.borderColor = "#b3b3b3"
+    var element = document.getElementById("emailbody");
+    element.style.backgroundColor = "white"
+
+
 
     susTitle = false // reset all to false at beginning of generation
     susTime = false
@@ -44,7 +48,7 @@ function startGeneration() { // This function decides if the email will be phish
     phishingRandomiser = Math.floor(Math.random()*10);
     genderRandom = Math.floor(Math.random()*2);
     document.getElementById("description").innerHTML = "generation working" + phishingRandomiser
-    if (phishingRandomiser > 0) { // 10% Legit 90% Phishing emails
+    if (phishingRandomiser > -1) { // 0% Legit 100% Phishing emails
         generatePhishing(genderRandom);
         
     }
@@ -60,7 +64,8 @@ function generatePhishing(genderRandom) { // Phishing generation will start with
     const threatTraits = ["grammar", "link", "title", "content"]
     
 
-    phishingType = Math.floor(Math.random()*3);
+    //phishingType = Math.floor(Math.random()*3);
+    phishingType = 0
     document.getElementById("phishinggeneration").innerHTML = "phishing generation working"
     document.getElementById("phishingtype").innerHTML = phishingType
     if (phishingType == 0) {
@@ -137,6 +142,7 @@ function generateEmail(wordArr, phishingType, genderRandom) {
     var mm = String(today.getMonth() + 1).padStart(2, '0');
     random_company = Math.floor(Math.random() * 8);
     fake_random_company = Math.floor(Math.random() * 8);
+    random_image = Math.floor(Math.random() * 6) + 1;
 
     
     if (genderRandom == 0) { //Female 
@@ -153,7 +159,6 @@ function generateEmail(wordArr, phishingType, genderRandom) {
         if (phishingType == 0) {
             let r = (Math.random() + 1).toString(36).substring(7);
             let t = (Math.random() + 1).toString(36).substring(7)
-            random_image = Math.floor(Math.random() * 6) + 1;
             susEmail = true
             document.getElementById("emailAddress").innerHTML = emailname + "@" + r + t + ".com";
         }
@@ -186,16 +191,15 @@ function generateEmail(wordArr, phishingType, genderRandom) {
 
 
     if (wordArr.includes("photo")) {
-        randomImage = Math.floor(Math.random()*6) + 1;
         susPhoto = true
         if (phishingType == 0){
 
             if (genderRandom == 0) {
-                document.getElementById("profileimage").src = "images/BusinessMan" + randomImage + ".jpg";
+                document.getElementById("profileimage").src = "images/BusinessMan" + random_image + ".jpg";
             }
     
             if (genderRandom == 1) {
-                document.getElementById("profileimage").src = "images/BusinessWoman" + randomImage + ".jpg"; 
+                document.getElementById("profileimage").src = "images/BusinessWoman" + random_image + ".jpg"; 
             }
             
         } 
@@ -231,11 +235,17 @@ function generateEmail(wordArr, phishingType, genderRandom) {
             document.getElementById("emailTitle").innerHTML = baitwords[Math.floor(Math.random()*baitwords.length)] + " " + connectorwords[Math.floor(Math.random()*connectorwords.length)] + " " + downloadable[Math.floor(Math.random()*downloadable.length)] + " " + completionwords[Math.floor(Math.random()*completionwords.length)] + " " + finishwords[Math.floor(Math.random()*finishwords.length)] + ", " + baitwords[Math.floor(Math.random()*baitwords.length)] + "!"
         } 
     }
-    /*
+    
     if (wordArr.includes("grammar")) {
-        
+        susGrammar = true
+        fake_greetings = ['helo', 'plese respnd', 'im reching out abot', 'urgnt!!!', 'gretigns', 'hlelo', 'h', 'hellp', 'quikly']
+        if (phishingType == 0 ) {
+
+        }
+
     }
 
+    /*
     if (wordArr.includes("didnotorder")) {
         
     }
@@ -264,11 +274,11 @@ function generateEmail(wordArr, phishingType, genderRandom) {
         
         if (phishingType == 0) {
             if (genderRandom == 1) {
-                document.getElementById("profileimage").src = "images/BusinessMan" + randomImage + ".jpg";
+                document.getElementById("profileimage").src = "images/BusinessMan" + random_image + ".jpg";
             }
     
             if (genderRandom == 0) {
-                document.getElementById("profileimage").src = "images/BusinessWoman" + randomImage + ".jpg"; 
+                document.getElementById("profileimage").src = "images/BusinessWoman" + random_image + ".jpg"; 
             }
         }
 
@@ -302,10 +312,21 @@ function generateEmail(wordArr, phishingType, genderRandom) {
 
     }
 
+    if (!wordArr.includes("title")) {
+            titles = ['Please work on this file when you get back into the office', 'I have updated your calendar for this year', 'Can you work on this tommorow?', 'Here is the monthly review of your progress', 'Hope you had a good holiday, looking forward to seeing you in the office'] 
+            random_title = Math.floor(Math.random*5)
+            document.getElementById("emailTitle").innerHTML = titles[Math.floor(Math.random()*titles.length)]
+
+    }
+
+
 }
+
 
 function generateLegit() {
     document.getElementById("phishinggeneration").innerHTML = "legit generation working";
+    document.getElementById("emailscore").innerHTML = "This is a legitimate email";
+
 }
 
 function suspiciousTime(){
@@ -350,6 +371,16 @@ function suspiciousPhoto(){
     }
     if (susPhoto == false) {
         element.style.borderColor = "#ED5E40"
+    }
+}
+
+function suspiciousGrammar(){
+    var element = document.getElementById("emailbody");
+    if (susGrammar == true) {
+        element.style.backgroundColor = "#78CD39"
+    }
+    if (susGrammar == false) {
+        element.style.backgroundColor = "#ED5E40"
     }
 }
 
