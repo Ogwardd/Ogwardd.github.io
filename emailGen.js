@@ -1,8 +1,17 @@
 const issuesArray = ["time", "email", "title", "image", "grammar"]
 
 function startGeneration() {
-    var wordArr = [];
+    wordArr = [];
     var arr = []; // Array to hold issue numbers
+
+    image = document.getElementById('profileImage');
+    image.style.borderColor = null;
+
+    time = document.getElementById("timeSent");
+    time.style.backgroundColor = null;
+
+    title = document.getElementById("emailTitle");
+    title.style.backgroundColor = null;
 
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -11,8 +20,9 @@ function startGeneration() {
 
     length = issuesArray.length;
     issues = Math.floor(Math.random()*3) + 1; // Randomising the amount of issues to be inserted
-    genderRandom = Math.floor(Math.random()*2); // Randomise gender between male (1) and female (0)
-    subjectType = Math.floor(Math.random()*2) // Generates the type of phishing email it will be
+    gender = Math.floor(Math.random()*2); // Randomise gender between male (1) and female (0)
+    subjectType = 4;
+    //subjectType = Math.floor(Math.random()*2) // Generates the type of phishing email it will be
 
     while(arr.length < issues) {
         var r = Math.floor(Math.random()* length); // Randomising which issues will be put into the email
@@ -28,11 +38,11 @@ function startGeneration() {
         wordArr.push(issuesArray[arrNum]);
     }
 
-    generatePhishing(today, wordArr);
+    generatePhishing(today, wordArr, gender, subjectType);
 
 }
 
-function generatePhishing(today, wordArr, gender) {
+function generatePhishing(today, wordArr, gender, subjectType) {
 
     document.getElementById("emailContent").innerHTML = wordArr
     if (wordArr.includes("time")) {
@@ -52,7 +62,7 @@ function generatePhishing(today, wordArr, gender) {
     }
 
     if (wordArr.includes("title")) {
-        generateBadTitle();
+        generateBadTitle(subjectType);
     }
 
     document.getElementById("emailAddress").innerHTML = "test"
@@ -61,22 +71,22 @@ function generatePhishing(today, wordArr, gender) {
 
 function generateBadImage() {
     randomImage = Math.floor(Math.random() * 15) + 1;
-    if (genderRandom == 0) {
+    if (gender == 0) {
         document.getElementById("profileImage").src = "images/BusinessMan" + randomImage + ".jpg";
     }
 
-    if (genderRandom == 1) {
+    if (gender == 1) {
         document.getElementById("profileImage").src = "images/BusinessWoman" + randomImage + ".jpg"; 
     }
 }
 
 function generateGoodImage() {
     randomImage = Math.floor(Math.random() * 15) + 1;
-    if (genderRandom == 1) {
+    if (gender == 1) {
         document.getElementById("profileImage").src = "images/BusinessMan" + randomImage + ".jpg";
     }
 
-    if (genderRandom == 0) {
+    if (gender == 0) {
         document.getElementById("profileImage").src = "images/BusinessWoman" + randomImage + ".jpg"; 
     }
 }
@@ -119,7 +129,13 @@ function generateBadTitle(subjectType) {
 
     raiseWords = []
 
-    vacationWords = ["vacation", "holiday", "time off", "leave", "break", "rest days"]
+
+    //Vacation generation
+    vacationWordsOne = ["Vacation time", "Holiday", "Time off", "Leave", "Break"]
+    vacationWordsTwo = ["is now", "is", "will be", "should be"]
+    vacationWordsThree = ["up", "ready", "set up", "added", "sorted out"]
+    vacationWordsFour = ["for you to", "go ahead and", "please", "feel free to"]
+    vacationWordsFive = ["take", "sort this out", "set your days", "add to the schedule"]
 
     if (subjectType == 0) { //Payroll issue
 
@@ -138,8 +154,45 @@ function generateBadTitle(subjectType) {
     }
 
     if (subjectType == 4) { // New vacation policies
-
+        randV1 = vacationWordsOne[Math.floor(Math.random()*vacationWordsOne.length)]
+        randV2 = vacationWordsTwo[Math.floor(Math.random()*vacationWordsTwo.length)]
+        randV3 = vacationWordsThree[Math.floor(Math.random()*vacationWordsThree.length)]
+        randV4 = vacationWordsFour[Math.floor(Math.random()*vacationWordsFour.length)]
+        randV5 = vacationWordsFive[Math.floor(Math.random()*vacationWordsFive.length)]
+        document.getElementById("emailTitle").innerHTML = randV1 + " " + randV2 + " " + randV3 + " " + randV4 + " " + randV5
     }
 
+
+}
+
+function suspiciousTime() {
+    var element = document.getElementById("timeSent");
+    if (wordArr.includes("time")) {
+        element.style.backgroundColor = "#78CD39"
+    }
+    else {
+        element.style.backgroundColor = "#ED5E40"
+    }
+}
+
+function suspiciousTitle() {
+    var element = document.getElementById("emailTitle");
+    if (wordArr.includes("title")) {
+        element.style.backgroundColor = "#78CD39"
+    }
+    else {
+        element.style.backgroundColor = "#ED5E40"
+    }
+
+}
+
+function suspiciousImage() {
+    var element = document.getElementById("profileImage");
+    if (wordArr.includes("image")) {
+        element.style.borderColor = "#78CD39"
+    }
+    else {
+        element.style.borderColor = "#ED5E40"
+    }
 
 }

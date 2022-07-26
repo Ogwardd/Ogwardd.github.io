@@ -36,6 +36,18 @@
             background-color: #04AA6D;
             }
 
+            .emailContext {
+            margin: auto;
+            width: 60%;
+            border: 3px solid #04aa6d;
+            padding: 10px;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            }
+
+
             .emailHeader {
             margin: auto;
             width: 60%;
@@ -162,10 +174,15 @@
             <button type="button" class="button generate" onclick="startGeneration()">Generate Email</button>
         </div>
 
+        <div class="emailContext">
+            <textarea readonly id="emailBrief" rows="4" cols="120">Context</textarea>
+        </div>
+
+
         <div class="emailHeader">
 
             <div class="image">
-                <img id="profileImage" onclick="suspiciousPhoto()">
+                <img id="profileImage" onclick="suspiciousImage()">
             </div>
 
             <div class="text">
