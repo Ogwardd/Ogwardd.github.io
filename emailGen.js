@@ -1,4 +1,8 @@
 const issuesArray = ["time", "email", "title", "image", "grammar"]
+const male_first_names = ["john", "oliver", "mike", "david", "ian", "chris", "tom", "jack", "gus", "craig", "scott", "elliot", "daniel"]
+const female_first_names = ["julie", "june", "kirsty", "gwynn", "daisy", "susan", "carol", "anne", "patricia", "molly", "tina", "maude", "sheila"]
+const last_names = ["anderson", "ashwoon", "aikin", "bateman", "bongard", "bowers", "boyd", "cannon", "cast", "deitz", "dewalt", "ebner", "french", "hancock", "haworth", "hesch", "hoffman", "kassing", "knutson", "lawless", "lawicki", "mccord", "mccormack", "miller", "myers", "nugent", "ortiz", "orwig", "ory", "paiser", "pak", "pettigrew", "quinn", "quizoz", "ramachandran", "resnick", "sagar", "schickowski", "schiebel", "sellon", "severson", "shaffer", "solberg", "soloman", "sonderling", "soukup", "soulis", "stahl", "sweeney", "tandy", "trebil", "trusela", "trussel", "turco", "uddin", "uflan", "ulrich", "upson", "vader", "vail", "valente", "vanzandt", "vanderpoel", "ventotla", "vogal", "wagle", "wagner", "wakefield", "weinstein"]
+const gender_info = ["is a female coworker", "is a male coworker"]
 
 function startGeneration() {
     wordArr = [];
@@ -12,6 +16,9 @@ function startGeneration() {
 
     title = document.getElementById("emailTitle");
     title.style.backgroundColor = null;
+
+    email = document.getElementById("emailAddress");
+    email.style.backgroundColor = null;
 
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -65,8 +72,62 @@ function generatePhishing(today, wordArr, gender, subjectType) {
         generateBadTitle(subjectType);
     }
 
-    document.getElementById("emailAddress").innerHTML = "test"
+    if (!wordArr.includes("title")) {
+        generateGoodTitle();
+    }
 
+    if (wordArr.includes("email")) {
+        generateBadEmail(gender);
+    }
+
+    if (!wordArr.includes("email")) {
+        generateGoodEmail(gender);
+    }
+
+    document.getElementById("emailBrief").innerHTML = contextName + " " + gender_info[gender] + ", emails are only meant to be sent through work hours"
+
+}
+
+function generateBadEmail() {
+    let r = (Math.random() + 1).toString(36).substring(7);
+    let t = (Math.random() + 1).toString(36).substring(7);
+    
+    if (gender == 0) { //Female 
+        document.getElementById("emailAddress").innerHTML = "test_bad_female"
+        emailname = female_first_names[Math.floor(Math.random()*female_first_names.length)] + last_names[Math.floor(Math.random()*last_names.length)]     
+    }
+
+    if (gender == 1) { //Male
+        document.getElementById("emailAddress").innerHTML = "test_bad_male"
+        emailname = male_first_names[Math.floor(Math.random()*male_first_names.length)] + last_names[Math.floor(Math.random()*last_names.length)]
+    }  
+    
+    document.getElementById("emailAddress").innerHTML = emailname + "@" + r + t + ".com";
+    
+}
+
+function generateGoodEmail() {
+    document.getElementById("emailAddress").innerHTML = "test_good"
+    if (gender == 0) { //Female 
+        femaleRandom = Math.floor(Math.random()*female_first_names.length) 
+        lastRandom = Math.floor(Math.random()*last_names.length)
+        contextFirstName = female_first_names[femaleRandom]
+        contextLastName = last_names[lastRandom]
+        emailname = contextFirstName +  contextLastName
+        contextName = (contextFirstName.charAt(0).toUpperCase() + contextFirstName.slice(1)) + " " + (contextLastName.charAt(0).toUpperCase() + contextLastName.slice(1));
+    }
+
+    if (gender == 1) { //Male
+        maleRandom = Math.floor(Math.random()*male_first_names.length) 
+        lastRandom = Math.floor(Math.random()*last_names.length)
+        contextFirstName = male_first_names[maleRandom]
+        contextLastName = last_names[lastRandom]
+        emailname = contextFirstName +  contextLastName
+        contextName = (contextFirstName.charAt(0).toUpperCase() + contextFirstName.slice(1)) + " " + (contextLastName.charAt(0).toUpperCase() + contextLastName.slice(1));
+    }  
+
+    
+    document.getElementById("emailAddress").innerHTML = emailname + "@gmail.com";
 }
 
 function generateBadImage() {
@@ -165,6 +226,10 @@ function generateBadTitle(subjectType) {
 
 }
 
+function generateGoodTitle() {
+    document.getElementById("emailTitle").innerHTML = "This is a good email"
+}
+
 function suspiciousTime() {
     var element = document.getElementById("timeSent");
     if (wordArr.includes("time")) {
@@ -178,6 +243,17 @@ function suspiciousTime() {
 function suspiciousTitle() {
     var element = document.getElementById("emailTitle");
     if (wordArr.includes("title")) {
+        element.style.backgroundColor = "#78CD39"
+    }
+    else {
+        element.style.backgroundColor = "#ED5E40"
+    }
+
+}
+
+function suspiciousEmail() {
+    var element = document.getElementById("emailAddress");
+    if (wordArr.includes("email")) {
         element.style.backgroundColor = "#78CD39"
     }
     else {
